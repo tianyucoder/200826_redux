@@ -1,10 +1,7 @@
+/* 
+	该文件是Count组件的UI组件，只负责：结构的呈现、交互等，不可以见到任何redux相关的API
+*/
 import React, { Component } from 'react'
-import store from '../../redux/store'
-import {
-	createIncrementAction,
-	createDecrementAction,
-	createIncrementAsyncAction
-} from '../../redux/count_action'
 
 export default class Count extends Component {
 
@@ -13,33 +10,33 @@ export default class Count extends Component {
 	increment = ()=>{
 		//获取用户选择的数字
 		const {value} = this.checkNumber
-		store.dispatch(createIncrementAction(value*1))
+		this.props.jia(value*1)
+		
 	}
 
 	decrement = ()=>{
 		//获取用户选择的数字
 		const {value} = this.checkNumber
-		store.dispatch(createDecrementAction(value*1))
+		
 	}
 
 	incrementIfOdd = ()=>{
 		//获取用户选择的数字
 		const {value} = this.checkNumber
-		if(store.getState() % 2 !== 0){
-			store.dispatch(createIncrementAction(value*1))
-		}
+		
 	}
 
 	incrementAsync = ()=>{
 		//获取用户选择的数字
 		const {value} = this.checkNumber
-		store.dispatch(createIncrementAsyncAction(value*1))
+		
 	}
 
 	render() {
+		console.log('Count的UI组件收到的props是',this.props);
 		return (
 			<div>
-				<h2>当前求和为：{store.getState()}</h2>
+				<h2>当前求和为：{this.props.he}</h2>
 				<select ref={c => this.checkNumber = c}>
 					<option value="1">1</option>
 					<option value="2">2</option>
