@@ -1,7 +1,7 @@
 //引入常量模块
 import {INCREMENT,DECREMENT} from './constant'
 
-export default function countReducer(preState=666,action){
+export default function countReducer(preState=0,action){
 	// console.log('@@@');
 	//从action对象中获取type和data
 	const {type,data} = action

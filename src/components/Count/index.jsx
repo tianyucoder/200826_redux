@@ -1,3 +1,4 @@
+
 //引入Count的UI组件
 import React, { Component } from 'react'
 //引入action
@@ -19,7 +20,6 @@ class Count extends Component {
 		//获取用户选择的数字
 		const {value} = this.checkNumber
 		this.props.jia(value*1)
-		
 	}
 
 	decrement = ()=>{
@@ -62,25 +62,24 @@ class Count extends Component {
 	}
 }
 
-//映射状态
-function mapStateToProps(state){ 
-	return {he:state}
-}
 
-//映射操作状态的方法
-function mapDispatchToProps(dispatch){ //借助b传递操作状态的方法
-	return {
-		jia:number => dispatch(createIncrementAction(number)),
-		jian:number => dispatch(createDecrementAction(number)),
-		jiaAsync:number => dispatch(createIncrementAsyncAction(number)),
+//准备一个容器组件
+export default connect(
+	//映射状态
+	state => ({he:state}), 
+
+	//映射操作状态的方法
+	/* dispatch => (
+		{
+			jia:number => dispatch(createIncrementAction(number)),
+			jian:number => dispatch(createDecrementAction(number)),
+			jiaAsync:number => dispatch(createIncrementAsyncAction(number)),
+		}
+	) */
+	{
+		jia: createIncrementAction,
+		jian: createDecrementAction,
+		jiaAsync: createIncrementAsyncAction,
 	}
-}
-
-/* 
-	准备一个容器组件，该组件主要负责：和redux进行数据的交互，
-	可以随意的使用redux的API，和UI组件是父子关系
-*/
-const CountContainer = connect(mapStateToProps,mapDispatchToProps)(Count)
-
-//暴露容器组件
-export default CountContainer
+	
+)(Count)

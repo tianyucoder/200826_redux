@@ -46,3 +46,17 @@
 								-mapStateToProps:映射状态，返回值是一个对象
 								-mapDispatchToProps:映射操作状态的方法，返回值是一个对象
 			(3).备注：容器组件中的store是靠props传进去的，而不是在容器组件中直接引入
+
+
+## 5.求和案例_react-redux优化
+			1.整合UI组件与容器组件
+			2.使用Provider批量给所有的容器组件传递store
+			3.mapDispatchToProps也可以写成一个对象，形如：
+					jia:加的actionCreator
+					jian:减的actionCreator
+					xxxx:yyyyy
+					备注：xxx是传递给UI组件props的key，yyyy是对应业务逻辑的action
+			4.一个组件要和redux通信，分为几步：
+						（1）在组件中引入connect,使用connect(映射状态，映射操作状态的方法)(UI组件)
+						（2）检查index.js中使用使用Provider提供store
+						（3）根据是否操作状态，决定是否引入action
