@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 
 /* 
 	Hooks
@@ -41,12 +42,12 @@ import React, { Component } from 'react'
 		(4). 可以把 useEffect Hook 看做如下三个函数的组合
 						componentDidMount()
 						componentDidUpdate()
-					componentWillUnmount() 
+						componentWillUnmount() 
 
 	5. Ref Hook
-		(1). Ref Hook可以在函数组件中存储/查找组件内的标签或任意其它数据
-		(2). 语法: const refContainer = useRef(initialValue)
-		(3). 作用:保存标签对象,功能与React.createRef()一样
+			(1). Ref Hook可以在函数组件中存储/查找组件内的标签或任意其它数据
+			(2). 语法: const refContainer = useRef(initialValue)
+			(3). 作用:保存标签对象,功能与React.createRef()一样
 */
 
 
@@ -55,13 +56,27 @@ import React, { Component } from 'react'
 
 	state = {count:0}
 
+	myRef = React.createRef()
+
 	add = ()=>{
 		const {count} = this.state
 		this.setState({count:count+1})
 	}
 
+	death = ()=>{
+		ReactDOM.unmountComponentAtNode(document.getElementById('root'))
+	}
+
+	show = ()=>{
+		alert(this.myRef.current.value)
+	}
+
+	componentWillUnmount(){
+		clearInterval(this.timer)
+	}
+
 	componentDidMount(){
-		setInterval(() => {
+		this.timer = setInterval(() => {
 			const {count} = this.state
 			this.setState({count:count+1})
 		},1000);
@@ -71,7 +86,10 @@ import React, { Component } from 'react'
 		return (
 			<div>
 				<h2>当前求和为：{this.state.count}</h2>
+				<input ref={this.myRef} type="text"/>
 				<button onClick={this.add}>点我+1</button>
+				<button onClick={this.death}>点我卸载组件</button>
+				<button onClick={this.show}>点我提示输入的内容</button>
 			</div>
 		)
 	}
@@ -80,6 +98,9 @@ import React, { Component } from 'react'
 //定义一个Count组件（函数式组件）
 function Count(){
 	console.log('Count'); // 1 + n
+	// let inputNode
+	// let myRef = React.createRef()
+	let myRef2 = React.useRef()
 
 	const [count,setCount] = React.useState(0)
 
@@ -88,13 +109,33 @@ function Count(){
 		setCount(count => count+1)
 	}
 
-	//
-	React.useEffect
+	function death(){
+		ReactDOM.unmountComponentAtNode(document.getElementById('root'))
+	}
+	function show(){
+		console.log(myRef2);
+		alert(myRef2.current.value)
+	}
+
+	//使用React.useEffect，可以在函数式组件中使用生命周期钩子
+	React.useEffect(()=>{ //useEffect传入的第一个参数，相当与componentDidMount和componentDidUpdate
+		console.log('componentDidMount');
+		let timer = setInterval(()=>{
+			setCount(count => count+1)
+		},1000)
+		return ()=>{ //return的这个函数，相当与componentWillUnmount
+			console.log('componentWillUnmount');
+			clearInterval(timer)
+		}
+	},[])
 
 	return(
 		<div>
 			<h2>当前求和为：{count}</h2>
+			<input ref={myRef2} type="text"/>
 			<button onClick={add}>点我+1</button>
+			<button onClick={death}>卸载组件</button>
+			<button onClick={show}>点我提示输入</button>
 		</div>
 	)
 }
