@@ -1,7 +1,7 @@
 /* 
 	该问文件是专门用于创建Count组件相关的action
 */
-import {INCREMENT,DECREMENT} from './constant'
+import {INCREMENT,DECREMENT} from '../constant'
 
 export const createIncrementAction = number =>({type:INCREMENT,data:number})
 

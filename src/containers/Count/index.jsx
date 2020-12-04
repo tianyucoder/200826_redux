@@ -6,7 +6,7 @@ import {
 	createIncrementAction,
 	createDecrementAction,
 	createIncrementAsyncAction
-} from '../../redux/count_action'
+} from '../../redux/actions/count'
 //引入connect用于连接UI与redux，且connect()()可以生成容器组件
 import {connect} from 'react-redux'
 //mapStateToProps用于给UI组件映射redux中的状态，通过props传递
@@ -47,7 +47,8 @@ class Count extends Component {
 		// console.log('Count的UI组件收到的props是',this.props);
 		return (
 			<div>
-				<h2>当前求和为：{this.props.he}</h2>
+				<h3>我是Count组件,下方组件总人数为：{this.props.renCount}</h3>
+				<h4>当前求和为：{this.props.he}</h4>
 				<select ref={c => this.checkNumber = c}>
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -66,7 +67,13 @@ class Count extends Component {
 //准备一个容器组件
 export default connect(
 	//映射状态
-	state => ({he:state}), 
+	state => {
+		console.log('@#$%$#@$%^',state);
+		return {
+			he:state.he,
+			renCount:state.yiduiren.length
+		}
+	}, 
 
 	//映射操作状态的方法
 	/* dispatch => (

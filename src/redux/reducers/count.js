@@ -1,5 +1,6 @@
 //引入常量模块
-import {INCREMENT,DECREMENT} from './constant'
+import {INCREMENT,DECREMENT} from '../constant'
+console.log('@--countReducer');
 
 export default function countReducer(preState=0,action){
 	// console.log('@@@');
