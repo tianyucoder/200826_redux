@@ -88,18 +88,13 @@ function Count(){
 		setCount(count => count+1)
 	}
 
-	function go(){
-		setInterval(()=>{
-			setCount(count => count+1)
-		},1000)
-	}
-	go()
+	//
+	React.useEffect
 
 	return(
 		<div>
 			<h2>当前求和为：{count}</h2>
 			<button onClick={add}>点我+1</button>
-			<button onClick={go}>点我开始自增</button>
 		</div>
 	)
 }
