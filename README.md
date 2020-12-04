@@ -60,3 +60,21 @@
 						（1）在组件中引入connect,使用connect(映射状态，映射操作状态的方法)(UI组件)
 						（2）检查index.js中使用使用Provider提供store
 						（3）根据是否操作状态，决定是否引入action
+
+## 6.求和案例_react-redux数据共享版
+			(1).定义一个Pserson组件，和Count组件通过redux共享数据。
+			(2).为Person组件编写：reducer、action，配置constant常量。
+			(3).重点：Person的reducer和Count的Reducer要使用combineReducers进行合并，
+					合并后的总状态是一个对象！！！
+			(4).交给store的是总reducer，最后注意在组件中取出状态的时候，记得“取到位”。
+
+## 7.求和案例_react-redux开发者工具的使用
+			(1).yarn add redux-devtools-extension
+			(2).store中进行配置
+					import {composeWithDevTools} from 'redux-devtools-extension'
+					const store = createStore(allReducer,composeWithDevTools(applyMiddleware(thunk)))
+
+## 8.求和案例_react-redux最终版
+			(1).所有变量名字要规范，尽量触发对象的简写形式。
+			(2).reducers文件夹中，编写index.js专门用于汇总并暴露所有的reducer
+
